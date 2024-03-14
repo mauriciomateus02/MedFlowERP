@@ -1,0 +1,31 @@
+datasource db{
+
+   provider ="postgresql"
+   url = env("DATABASE_URL")
+}
+
+generator db{
+    provider = "prisma-client-py"
+    recursive_type_depth = 2
+
+}
+
+model user{
+    cpf          Int      @id @default(autoincrement())
+    name        String
+    address     String
+    phone       String 
+    birthDate   String
+    password    String
+    createdAt   DateTime @default(now())
+
+}
+
+model doctor{
+    crm        String  @id
+    name       String
+    phone      String  @unique
+    birthDate  String
+    password   String
+    createdAt  DateTime @default(now())
+}
