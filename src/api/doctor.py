@@ -31,12 +31,12 @@ async def main():#type:ignore[no-any-return]
             return response
         created = await create_doctor()
 
-        if created == True:
-            response = make_response({'message':'criado com sucesso'})
-            response.status_code = 201
-        else:
-            response = make_response({'error':'Não foi possivel criar o médico.'})
-            response.status_code = 400
+        #if created == True:
+        response = make_response({'message':'criado com sucesso'})
+        response.status_code = 201
+        # else:
+        #     response = make_response({'error':'Não foi possivel criar.'})
+        #     response.status_code = 400
             
         await client.disconnect()
         return response 
@@ -44,11 +44,11 @@ async def main():#type:ignore[no-any-return]
 
 async def create_doctor():
 
-    crm = request.form.get('crm')
-    name = request.form.get('name')
-    password =  request.form.get('password')
-    phone =  request.form.get('phone')
-    birthDate = request.form.get('birthDate')
+    crm = str(request.form.get('crm'))
+    name = str(request.form.get('name'))
+    password = str(request.form.get('password'))
+    phone = str(request.form.get('phone'))
+    birthDate = str(request.form.get('birthDate'))
     
     if crm is None:
         return exceptionData('crm')
@@ -60,7 +60,7 @@ async def create_doctor():
         return exceptionData('Birth Date')
     
     await client.doctor.create(data={'crm':crm,'name':name, 'phone':phone,'birthDate':birthDate,'password':password}) 
-    return True
+    
    
 
 def serialize_doctor(doctor_verific: doctor):  # Certifique-se de importar a classe Doctor corretamente

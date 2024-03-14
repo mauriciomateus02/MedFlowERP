@@ -11,7 +11,7 @@ generator db{
 }
 
 model user{
-    cpf          Int      @id @default(autoincrement())
+    cpf         String      @id
     name        String
     address     String
     phone       String 

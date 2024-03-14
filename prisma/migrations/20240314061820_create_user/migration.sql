@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "user" (
-    "cpf" SERIAL NOT NULL,
+    "cpf" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "phone" TEXT NOT NULL,

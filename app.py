@@ -1,6 +1,7 @@
 from flask import Flask,request,make_response, jsonify
 from prisma import Prisma, register,Client
 from src.api.doctor import doctor_blueprint
+from src.api.user import user_blueprint
 from flask_wtf.csrf import CSRFProtect
 from dotenv import load_dotenv
 import os
@@ -24,9 +25,10 @@ def main():
         response.status_code = 200
         return response
        
-# app.register_blueprint(user_blueprint,url_prefix='register')
+app.register_blueprint(user_blueprint,url_prefix='/user')
 app.register_blueprint(doctor_blueprint, url_prefix='/doctor')
 csrf.exempt(doctor_blueprint)
+csrf.exempt(user_blueprint)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000, threaded=True)
