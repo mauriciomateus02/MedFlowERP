@@ -1,4 +1,1 @@
 DATABASE_URL=postgresql://{USER_NAME}:{USER_PASSWORD}@{HOST}:{PORT=5432}/{NAME_DB}
-KEY_SECRET=123
-KEY_BCRYPT=10
-postgresql://postgres:lVcFSnOooeuvqcqQbYFOVrXeFNnQxBPp@monorail.proxy.rlwy.net:28737/railway
