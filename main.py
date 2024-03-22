@@ -3,6 +3,7 @@ from prisma import Prisma, register,Client
 from src.api.doctor import doctor_blueprint
 from src.api.user import user_blueprint
 from flask_wtf.csrf import CSRFProtect
+from src.api.attendentAPI import attendent_blueprint
 from dotenv import load_dotenv
 import os
 
@@ -27,6 +28,8 @@ def main():
        
 app.register_blueprint(user_blueprint,url_prefix='/user')
 app.register_blueprint(doctor_blueprint, url_prefix='/doctor')
+app.register_blueprint(attendent_blueprint, url_prefixt='/attendent')
+csrf.exempt(attendent_blueprint)
 csrf.exempt(doctor_blueprint)
 csrf.exempt(user_blueprint)
 
