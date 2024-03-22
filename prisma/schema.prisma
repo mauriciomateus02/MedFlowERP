@@ -10,6 +10,15 @@ generator db{
 
 }
 
+model query{
+    queryID     String      @unique
+    date        String 
+    doctor      String
+    turno       String
+    user        String
+    queryType   String
+}
+
 model attendent{
     cpf         String      @id
     name        String
