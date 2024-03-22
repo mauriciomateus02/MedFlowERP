@@ -3,7 +3,8 @@ from prisma import Client
 from ..middleware.middlewareBcrypt import passwordCrypt
 from ..entities.attendant.attendant import attendent_validator
 from ..entities.attendant.serializer import serializer_attendet
-attendent_blueprint = Blueprint('user', __name__)
+
+attendent_blueprint = Blueprint('attendent', __name__)
 
 client = Client()
 
