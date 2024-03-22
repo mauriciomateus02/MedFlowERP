@@ -1,8 +1,10 @@
-from flask import Blueprint, make_response,request, render_template
+from flask import Blueprint, jsonify, make_response,request, render_template
 from prisma import Client
 from prisma.models import user
 from ..utils.exception import exceptionData
-
+from ..entities.user.serializer import serialize_user
+from ..entities.user.user import user_validator
+from ..middleware.middlewareBcrypt import passwordCrypt
 
 user_blueprint = Blueprint('user', __name__)
 
@@ -18,57 +20,26 @@ async def main():#type:ignore[no-any-return]
         return make_response(serializable_users)
     
     elif request.method == 'POST':
-        data = request.form
+        
+        data_json = request.json
+        is_valid, erro_message = user_validator(json_data=data_json)
+       
+        if is_valid:
+            passsword = passwordCrypt(data_json.get('password'))
+            print(passsword)
+            print(data_json.get('password'))
+            await client.user.create(data={'cpf':data_json.get('cpf'),'name':data_json.get('name'),
+                                             'phone':data_json.get('phone'),'password':str(passsword),'birthDate':data_json.get('birthDate'),'address': data_json.get('address')})
 
-        if data is None:
-            response =  make_response(exceptionData)
-            response.status_code = 404
+            response = make_response({'message':'criado com sucesso'})
+            response.status_code = 201
+            
             await client.disconnect()
             return response
         
-        created = await create_user()
-
-        if created == True:
-            response = make_response({'message':'criado com sucesso'})
-            response.status_code = 201
         else:
-            response = make_response({'error':'Não foi possivel criar'})
-            response.status_code = 400
-            
-        await client.disconnect()
-        return response
-
-
-async def create_user():
-
-    cpf = str(request.form.get('cpf'))
-    name = str(request.form.get('name'))
-    address = str(request.form.get('address'))
-    password = str(request.form.get('password'))
-    phone = str(request.form.get('phone'))
-    birthDate = str(request.form.get('birthDate'))
-    
-    if cpf is None:
-        return exceptionData('cpf')
-    if address is None:
-        return exceptionData('address')
-    elif name is None:
-        return exceptionData('name')
-    elif phone is None:
-        return exceptionData('phone')
-    elif birthDate is None:
-        return exceptionData('Birth Date')
-    
-    await client.user.create(data={'cpf':cpf,'address':address,'name':name,'phone':phone,'birthDate':birthDate,'password':password}) 
-    return True
-
-
-def serialize_user(userverifi: user):
-    return {
-        'cpf': userverifi.cpf,
-        'name': userverifi.name,
-        'address': userverifi.address,
-        'phone': userverifi.phone,
-        'birthDate': userverifi.birthDate,
-        'createdAt': userverifi.createdAt
-    }
+           
+            response =  make_response(jsonify(erro_message))
+            response.status_code = 404
+            await client.disconnect()
+            return response 
