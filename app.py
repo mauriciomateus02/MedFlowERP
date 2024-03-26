@@ -14,10 +14,6 @@ load_dotenv()
 app.config['SECRET_KEY'] = os.getenv('KEY_SECRET')
 csrf = CSRFProtect(app)
 
-db = Prisma()
-db.connect()
-register(db)
-
 @app.route('/', methods=['GET'])
 
 async def main():
