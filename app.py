@@ -20,9 +20,9 @@ register(db)
 
 @app.route('/', methods=['GET'])
 
-def main():
+async def main():
     if request.method == 'GET':
-        response =  make_response()
+        response =  make_response(jsonify({"message":"teste"}))
         response.status_code = 200
         return response
        
