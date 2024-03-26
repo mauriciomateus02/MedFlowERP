@@ -2,3 +2,5 @@ DATABASE_URL=postgresql://{USER_NAME}:{USER_PASSWORD}@{HOST}:{PORT=5432}/{NAME_D
 KEY_SECRET=123
 KEY_BCRYPT=10
 postgresql://postgres:lVcFSnOooeuvqcqQbYFOVrXeFNnQxBPp@monorail.proxy.rlwy.net:28737/railway
+
+postgresql://postgres:root@localhost:5432/medflow
