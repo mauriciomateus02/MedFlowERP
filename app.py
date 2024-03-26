@@ -25,6 +25,10 @@ async def main():
         response =  make_response(jsonify({"message":"teste"}))
         response.status_code = 200
         return response
+    else:
+        response =  make_response(jsonify({"message":"teste"}))
+        response.status_code = 400
+        return response
        
 app.register_blueprint(user_blueprint,url_prefix='/user')
 app.register_blueprint(doctor_blueprint, url_prefix='/doctor')
