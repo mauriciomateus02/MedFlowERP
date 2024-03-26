@@ -14,12 +14,13 @@ load_dotenv()
 app.config['SECRET_KEY'] = os.getenv('KEY_SECRET')
 csrf = CSRFProtect(app)
 
+db = Prisma()
+register(db)
+
 @app.route('/', methods=['GET'])
 
 async def main():
-    db = Prisma()
-    db.connect()
-    register(db)
+    await db.connect()
 
     if request.method == 'GET':
         response =  make_response(jsonify({"message":"teste"}))
