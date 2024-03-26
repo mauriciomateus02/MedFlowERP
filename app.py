@@ -22,7 +22,7 @@ register(db)
 
 async def main():
     db = Prisma()
-    await db.connect()
+    db.connect()
     await register(db)
 
     if request.method == 'GET':
