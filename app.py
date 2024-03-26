@@ -23,7 +23,7 @@ register(db)
 async def main():
     db = Prisma()
     db.connect()
-    await register(db)
+    register(db)
 
     if request.method == 'GET':
         response =  make_response(jsonify({"message":"teste"}))
