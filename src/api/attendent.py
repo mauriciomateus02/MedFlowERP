@@ -13,7 +13,7 @@ async def main():#type:ignore[no-any-return]
     await client.connect()
 
     if request.method == 'GET':
-        users = await client.user.find_many()
+        users = await client.attendent.find_many()
         await client.disconnect()
         serializable_users = [serializer_attendet(userverifi) for userverifi in users]
         return make_response(serializable_users)
