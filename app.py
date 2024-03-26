@@ -21,13 +21,19 @@ register(db)
 @app.route('/', methods=['GET'])
 
 async def main():
+    db = Prisma()
+    await db.connect()
+    await register(db)
+    
     if request.method == 'GET':
         response =  make_response(jsonify({"message":"teste"}))
         response.status_code = 200
+        db.disconnect()
         return response
     else:
         response =  make_response(jsonify({"message":"teste"}))
         response.status_code = 400
+        db.disconnect()
         return response
        
 app.register_blueprint(user_blueprint,url_prefix='/user')
